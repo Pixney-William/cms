@@ -102,6 +102,16 @@ class Locales extends Tags
      */
     private function getLocalizedData($locale)
     {
+
+        /** 
+        When i have a website with at least two locales, and a two level stucture (ie: domain.com/level1/level2) it bombs out if 
+        a page has no translation.. this fixes the issue, but should most likeley be handled better so this is more of an idea than a 
+        pull request..
+        **/
+            
+        if (is_null($this->getData()->in($locale))) {
+            return null;
+        }
         return $this->getData()->in($locale)->toAugmentedArray();
     }
 
